@@ -1,18 +1,20 @@
 function getStats() {
-    let stats = {};
+    const streakElem = document.querySelector("div[data-testid='stat-current_streak']");
+    const completed = document.querySelector("div[data-testid='stat-completed']");
+    // console.log("hello");
+    // console.log(streakElem);
+    if (streakElem && completed) {
+        const streak = streakElem.querySelector("div").textContent;
+        const solved = completed.querySelector("div").textContent;
 
-    const streak = document.querySelector("#stat__current_streak");
-    const completed = document.querySelector("#stat__completed");
-
-    if (streak) {
-        stats.streak = streak.innerText;
+        // chrome.storage.local.set({ streak, solved }, () => {
+        //     console.log(`Stats saved. Streak: ${streak}, Solved Games: ${solved}`);
+        // });
     }
-
-    if (completed) {
-        stats.completed = completed.innerText;
+    else {
+        console.log("couldn't find streak or completed elements.");
     }
-
-    return stats;
 }
 
-chrome.runtime.sendMessage({ action: "saveStats", stats: getStats()});
+window.addEventListener('load', getStats());
+//chrome.runtime.sendMessage({ action: "saveStats", stats: getStats()});
